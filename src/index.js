@@ -1,10 +1,39 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Provider } from 'react-redux';
+import { HashRouter as Router } from "react-router-dom";
+import { IntlProvider, addLocaleData } from 'react-intl';
+import en from 'react-intl/locale-data/en';
+import zh from 'react-intl/locale-data/zh';
+import App from './pages/App';
+import zhCN from './locales/zh-CN';
+import enUS from './locales/en-US';
+import 'antd/dist/antd.css';
+import './index.css';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+addLocaleData([...en, ...zh]);
+
+export default class Root extends Component {
+
+    constructor(props) {
+        super(props);
+        this.currLocale = 'zh';
+    }
+
+    render() {
+        return (
+            <IntlProvider locale={this.currLocale} messages={this.currLocale === 'en' ? enUS : zhCN}>
+                <Router>
+                    <App />
+                </Router>
+            </IntlProvider>
+        );
+    }
+}
+
+ReactDOM.render(<Root />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
