@@ -33,6 +33,7 @@
     "jest-resolve": "23.6.0",
     "jest-watch-typeahead": "^0.2.1",
     "mini-css-extract-plugin": "0.5.0",
+    "node-sass": "^4.11.0",
     "optimize-css-assets-webpack-plugin": "5.0.1",
     "pnp-webpack-plugin": "1.2.1",
     "postcss-flexbugs-fixes": "4.1.0",
@@ -120,6 +121,28 @@
   "babel": {
     "presets": [
       "react-app"
+    ],
+    "plugins": [
+      [
+        "import",
+        {
+          "libraryName": "antd",
+          "libraryDirectory": "es",
+          "style": true
+        }
+      ],
+      [
+        "@babel/plugin-proposal-decorators",
+        {
+          "legacy": true
+        }
+      ]
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.4.0",
+    "babel-plugin-import": "^1.11.0",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0"
   }
 }
