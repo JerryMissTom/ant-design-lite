@@ -7,12 +7,10 @@ import { HashRouter as Router } from "react-router-dom";
 import { IntlProvider, addLocaleData } from 'react-intl';
 import en from 'react-intl/locale-data/en';
 import zh from 'react-intl/locale-data/zh';
-import App from './pages/App';
-import zhCN from './locales/zh-CN';
-import enUS from './locales/en-US';
-import 'antd/dist/antd.css';
-import './index.css';
-
+import App from '@/pages/App';
+import zhCN from '@/locales/zh-CN';
+import enUS from '@/locales/en-US';
+import './index.scss';
 addLocaleData([...en, ...zh]);
 
 export default class Root extends Component {
