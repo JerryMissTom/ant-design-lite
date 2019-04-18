@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { Button, Form, Input, Icon, Alert } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import styles from './Login.scss';
 import { loginAction } from '@/actions/login';
+import SelectLang from '@/components/SelectLang';
+import styles from './Login.scss';
+
 @Form.create()
 class Login extends Component {
 
@@ -34,6 +36,9 @@ class Login extends Component {
     const { getFieldDecorator } = this.props.form;
     return (
       <div className={styles.container}>
+       <div className={styles.lang}>
+       <SelectLang />
+       </div>
         <div className={styles.loginField}>
           <div className={styles.title}>Ant Design Lite</div>
           {loginStatus === false && <Alert style={{ marginBottom: 24 }} message='账号或密码错误' type="error" showIcon />}
@@ -47,7 +52,7 @@ class Login extends Component {
             </Form.Item>
             <Form.Item>
               {getFieldDecorator('password', {
-                rules: [{ required: true, message:  <FormattedMessage id="login.pwd-hint" defaultMessage="Please input your password!" /> }],
+                rules: [{ required: true, message: <FormattedMessage id="login.pwd-hint" defaultMessage="Please input your password!" /> }],
               })(
                 <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
               )}

@@ -111,6 +111,17 @@ module.exports = function (webpackEnv) {
           options: {
             modifyVars: {
               'primary-color': '#1DA57A',
+              'menu-dark-color': '#9B9B9B',
+              'menu-dark-bg': '#3A3A3A',
+              'menu-dark-arrow-color': '#FFFFFF',
+              'menu-dark-submenu-bg': '#2C2C2C',
+              'layout-sider-background': '#3A3A3A',
+              'border-color-split': '#E8E8E8',
+              'layout-body-background': '#F5F5F5',
+              'card-padding-base': '15px',
+              'card-padding-wider': '20px',
+              'border-radius-base': '0',
+              'border-radius-sm': '0'
             },
             javascriptEnabled: true,
             sourceMap: isEnvProduction && shouldUseSourceMap,

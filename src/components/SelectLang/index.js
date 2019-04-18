@@ -5,7 +5,7 @@ import styles from './index.scss';
 export default class SelectLang extends PureComponent {
     changeLang = ({ key }) => {
         localStorage.setItem('lang', key);
-        // 切换语言需要重新加载界面
+        // 切换语言需要重新加载界面，否则不生效
         window.location.reload();
     };
 

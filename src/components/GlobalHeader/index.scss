@@ -10,7 +10,12 @@
         color: #ffffff;
         padding: 20px;
         font-size: 16px;
+        cursor: pointer;
+        &:hover{
+            color:rgb(169, 231, 212);
+        }
     }
+
     .right{
         float: right;
         height: 100%;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import GlobalHeader from '@/components/GlobalHeader';
 import styles from './Home.scss';
-
+import SideMenu from '@/components/SideMenu';
 
 class Home extends Component {
 
@@ -25,10 +25,14 @@ class Home extends Component {
     }
   }
 
+  handleClick = ({key}) => {
+    console.log(key);
+  }
+
   render() {
     return (
       <div className={styles.container}>
-        <aside>我是Aside </aside>
+        <SideMenu collapsed={this.state.collapsed} handleClick={this.handleClick} />
         <section className={styles.rightContent}>
           <GlobalHeader
             collapsed={this.state.collapsed}
