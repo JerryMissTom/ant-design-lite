@@ -1,0 +1,32 @@
+.header {
+    height: 64px;
+    width: 100%;
+    background: #333333;
+
+    .trigger {
+        display: inline-block;
+        width: 60px;
+        height: 64px;
+        color: #ffffff;
+        padding: 20px;
+        font-size: 16px;
+    }
+    .right{
+        float: right;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+        margin-right: 10px;
+        .account{
+            margin-right: 10px;
+            .avatar{
+                background: #1DA57A;
+            }
+            .name{
+                margin: 0 10px;
+            }
+        }
+    }
+}

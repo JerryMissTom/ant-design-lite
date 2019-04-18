@@ -21,6 +21,7 @@ class Login extends Component {
         console.log('Received values of form: ', values);
         login(values, () => {
           console.log('callback');
+          this.props.history.replace('/home')
         })
         ///  this.props.history.push('/home');
         // this.props.history.replace('/home')
@@ -46,7 +47,7 @@ class Login extends Component {
             </Form.Item>
             <Form.Item>
               {getFieldDecorator('password', {
-                rules: [{ required: true, message: 'Please input your Password!' }],
+                rules: [{ required: true, message:  <FormattedMessage id="login.pwd-hint" defaultMessage="Please input your password!" /> }],
               })(
                 <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
               )}

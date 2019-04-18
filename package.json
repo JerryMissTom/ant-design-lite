@@ -145,5 +145,6 @@
     "babel-plugin-import": "^1.11.0",
     "less": "^3.9.0",
     "less-loader": "^4.1.0"
-  }
+  },
+  "proxy":  "https://easy-mock.com/mock/5caf2436a6cd0d5017bb4f09"
 }

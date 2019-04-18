@@ -18,14 +18,20 @@ import './index.scss';
 import configureStore from './store/index';
 
 addLocaleData([...en, ...zh]);
-moment.locale('zh-cn');
+//moment.locale('zh-cn');
 //moment.locale('en');
 const store = configureStore();
 export default class Root extends Component {
 
     constructor(props) {
         super(props);
-        this.currLocale = 'zh';
+        let lang = localStorage.getItem('lang') || 'zh-CN';
+        this.currLocale = lang === 'en-US' ? 'en' : 'zh';
+        if (lang === 'en-US') {
+            moment.locale('en');
+        } else {
+            moment.locale('zh-cn');
+        }
     }
 
     render() {
