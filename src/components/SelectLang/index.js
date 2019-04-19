@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import { Menu, Icon, Dropdown } from 'antd';
-import styles from './index.scss';
 
 export default class SelectLang extends PureComponent {
     changeLang = ({ key }) => {

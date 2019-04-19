@@ -1,11 +1,58 @@
 import React, { Component } from 'react';
-import { Menu, Icon, Switch } from 'antd';
-import styles from './index.scss';
+import { Menu, Icon } from 'antd';
+import { Link } from 'react-router-dom';
+
 const SubMenu = Menu.SubMenu;
 class BaseMenu extends Component {
 
+      /**
+       * 获得菜单子节点
+       * @memberof SiderMenu
+       */
+    getNavMenuItems = (menusData) => {
+        if (!menusData) {
+            return [];
+        }
+        return menusData
+            .filter(item => item.name && !item.hideInMenu)
+            .map(item => this.getSubMenuOrItem(item))
+            .filter(item => item);
+    };
+
+    // // Get the currently selected menu
+    // getSelectedMenuKeys = pathname => {
+    //     const { flatMenuKeys } = this.props;
+    //     return urlToList(pathname).map(itemPath => getMenuMatches(flatMenuKeys, itemPath).pop());
+    // };
+
+    /**
+     * get SubMenu or Item
+     */
+    getSubMenuOrItem = item => {
+        if (item.children && item.children.some(child => child.name)) {
+
+            return (
+                <SubMenu
+                    title={item.icon ? (<span><Icon type={item.icon} /><span>{item.name}</span> </span>) : (item.name)}
+                    key={item.path}
+                >
+                    {this.getNavMenuItems(item.children)}
+                </SubMenu>
+            );
+        }
+        return <Menu.Item key={item.path}>
+            <Link to={item.path}>
+                <span>
+                    <Icon type={item.icon} />
+                    <span>{item.name}</span>
+                </span>
+            </Link>
+        </Menu.Item>;
+    }
+
+
     render() {
-        const { handleClick } = this.props;
+        const { handleClick, routes } = this.props;
 
         return (
             <Menu
@@ -14,32 +61,7 @@ class BaseMenu extends Component {
                 defaultSelectedKeys={['1']}
                 mode="inline"
             >
-                <Menu.Item key="1">
-                    <Icon type="pie-chart" />
-                    <span>Option 1</span>
-                </Menu.Item>
-                <Menu.Item key="2">
-                    <Icon type="desktop" />
-                    <span>Option 2</span>
-                </Menu.Item>
-                <Menu.Item key="3">
-                    <Icon type="inbox" />
-                    <span>Option 3</span>
-                </Menu.Item>
-                <SubMenu key="sub1" title={<span><Icon type="mail" /><span>Navigation One</span></span>}>
-                    <Menu.Item key="5">Option 5</Menu.Item>
-                    <Menu.Item key="6">Option 6</Menu.Item>
-                    <Menu.Item key="7">Option 7</Menu.Item>
-                    <Menu.Item key="8">Option 8</Menu.Item>
-                </SubMenu>
-                <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>Navigation Two</span></span>}>
-                    <Menu.Item key="9">Option 9</Menu.Item>
-                    <Menu.Item key="10">Option 10</Menu.Item>
-                    <SubMenu key="sub3" title="Submenu">
-                        <Menu.Item key="11">Option 11</Menu.Item>
-                        <Menu.Item key="12">Option 12</Menu.Item>
-                    </SubMenu>
-                </SubMenu>
+                {this.getNavMenuItems(routes)}
             </Menu>
         );
     }

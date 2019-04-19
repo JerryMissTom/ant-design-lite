@@ -1,20 +1,45 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import { Route, Switch } from "react-router-dom";
 import GlobalHeader from '@/components/GlobalHeader';
 import styles from './Home.scss';
 import SideMenu from '@/components/SideMenu';
 import { Layout } from 'antd';
-import Dashboard from './Dashboard/Dashboard';
-import Analysis from './Analysis/Analysis';
+import PageLoading from '@/components/PageLoading';
 
-const {
-  Header, Footer, Sider, Content,
-} = Layout;
+
+const { Header, Footer, Content } = Layout;
+
+const routes = [
+  {
+    path: '/home/dashboard',
+    name: 'dashboard',
+    icon: 'dashboard',
+    // hideInMenu: true,
+    component: React.lazy(() => import('./Dashboard/Dashboard')),
+  },
+  {
+    path: '/home/analysis',
+    name: 'analysis',
+    icon: 'line-chart',
+    component: React.lazy(() => import('./Analysis/Analysis')),
+    // children: [{
+    //   path: '/home/analysis/chart',
+    //   name: 'chart',
+    //   icon: 'dashboard',
+    //   // hideInMenu: true,
+    //   component: React.lazy(() => import('./Chart/Chart')),
+    // }]
+  },
+]
 
 class Home extends Component {
 
   state = {
     collapsed: false
+  }
+
+  componentDidMount() {
+    console.log(this.props.match);
   }
 
   onHandleCollapse = (collapsed) => {
@@ -40,7 +65,7 @@ class Home extends Component {
   render() {
     return (
       <Layout>
-        <SideMenu collapsed={this.state.collapsed} handleClick={this.handleSideMenuClick} />
+        <SideMenu collapsed={this.state.collapsed} handleClick={this.handleSideMenuClick} routes={routes} />
         <Layout>
           <Header style={{ padding: 0 }}>
             <GlobalHeader
@@ -50,12 +75,11 @@ class Home extends Component {
             />
           </Header>
           <Content>
-            {console.log(this.props.match)
-            }
-            <Switch>
-              <Route path='/home/dashboard' component={Dashboard} />
-              <Route path="/home/analysis" component={Analysis} />
-            </Switch>
+            <Suspense fallback={<PageLoading />}>
+              <Switch>
+                {routes.map(item => <Route key={item.path} path={item.path} component={item.component} />)}
+              </Switch>
+            </Suspense>
           </Content>
           <Footer style={{ textAlign: 'center' }}>Copyright©2019 JerryMissTom</Footer>
         </Layout>
