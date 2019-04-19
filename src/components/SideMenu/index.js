@@ -14,10 +14,10 @@ class SideMenu extends Component {
         trigger={null}
         collapsible
         collapsed={collapsed}
-        width={220}
+        style={{ minHeight: '100vh' }}
       >
         <div className={styles.header}>
-          {collapsed?'Ant':'Ant Design Lite'}
+          {collapsed ? 'Ant' : 'Ant Design Lite'}
         </div>
         <BaseMenu {...this.props} />
       </Sider>

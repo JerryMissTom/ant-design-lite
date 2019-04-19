@@ -12,7 +12,6 @@ class BaseMenu extends Component {
                 theme='dark'
                 onClick={handleClick}
                 defaultSelectedKeys={['1']}
-                defaultOpenKeys={['sub1']}
                 mode="inline"
             >
                 <Menu.Item key="1">

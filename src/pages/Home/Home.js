@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import GlobalHeader from '@/components/GlobalHeader';
 import styles from './Home.scss';
 import SideMenu from '@/components/SideMenu';
+import { Layout } from 'antd';
+
+const {
+  Header, Footer, Sider, Content,
+} = Layout;
 
 class Home extends Component {
 
@@ -25,26 +30,26 @@ class Home extends Component {
     }
   }
 
-  handleClick = ({key}) => {
+  handleSideMenuClick = ({ key }) => {
     console.log(key);
   }
 
   render() {
     return (
-      <div className={styles.container}>
-        <SideMenu collapsed={this.state.collapsed} handleClick={this.handleClick} />
-        <section className={styles.rightContent}>
-          <GlobalHeader
-            collapsed={this.state.collapsed}
-            onCollapse={this.onHandleCollapse}
-            onMenuClick={this.onHandleMenuClick}
-          />
-          <main>
-            我是Main
-        </main>
-          <footer>我是Footer</footer>
-        </section>
-      </div>
+      <Layout>
+        <SideMenu collapsed={this.state.collapsed} handleClick={this.handleSideMenuClick} />
+        <Layout>
+          <Header style={{ padding: 0 }}>
+            <GlobalHeader
+              collapsed={this.state.collapsed}
+              onCollapse={this.onHandleCollapse}
+              onMenuClick={this.onHandleMenuClick}
+            />
+          </Header>
+          <Content>Content</Content>
+          <Footer style={{textAlign:'center'}}>Copyright@2019 JerryMissTom</Footer>
+        </Layout>
+      </Layout>
     )
   }
 }
