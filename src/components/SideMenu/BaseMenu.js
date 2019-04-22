@@ -5,25 +5,25 @@ import { Link } from 'react-router-dom';
 const SubMenu = Menu.SubMenu;
 class BaseMenu extends Component {
 
-      /**
-       * 获得菜单子节点
-       * @memberof SiderMenu
-       */
-    getNavMenuItems = (menusData) => {
-        if (!menusData) {
+    /**
+     * 获得菜单子节点
+     * @memberof SiderMenu
+     */
+    getNavMenuItems = (routes) => {
+        if (!routes) {
             return [];
         }
-        return menusData
+        return routes
             .filter(item => item.name && !item.hideInMenu)
             .map(item => this.getSubMenuOrItem(item))
             .filter(item => item);
     };
 
-    // // Get the currently selected menu
-    // getSelectedMenuKeys = pathname => {
-    //     const { flatMenuKeys } = this.props;
-    //     return urlToList(pathname).map(itemPath => getMenuMatches(flatMenuKeys, itemPath).pop());
-    // };
+    // Get the currently selected menu
+    getSelectedMenuKeys = pathname => {
+        console.log(pathname);
+        return [pathname];
+    };
 
     /**
      * get SubMenu or Item
@@ -52,13 +52,13 @@ class BaseMenu extends Component {
 
 
     render() {
-        const { handleClick, routes } = this.props;
+        const { handleClick, routes, location: { pathname } } = this.props;
 
         return (
             <Menu
                 theme='dark'
                 onClick={handleClick}
-                defaultSelectedKeys={['1']}
+                defaultSelectedKeys={this.getSelectedMenuKeys(pathname)}
                 mode="inline"
             >
                 {this.getNavMenuItems(routes)}

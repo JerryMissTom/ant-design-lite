@@ -16,7 +16,7 @@ class Login extends Component {
   }
 
   handleSubmit = (e) => {
-    const { loginStatus, login, dispatch } = this.props;
+    const { login } = this.props;
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
@@ -24,9 +24,7 @@ class Login extends Component {
         login(values, () => {
           console.log('callback');
           this.props.history.replace('/home')
-        })
-        ///  this.props.history.push('/home');
-        // this.props.history.replace('/home')
+        });
       }
     });
   }
@@ -36,9 +34,9 @@ class Login extends Component {
     const { getFieldDecorator } = this.props.form;
     return (
       <div className={styles.container}>
-       <div className={styles.lang}>
-       <SelectLang />
-       </div>
+        <div className={styles.lang}>
+          <SelectLang />
+        </div>
         <div className={styles.loginField}>
           <div className={styles.title}>Ant Design Lite</div>
           {loginStatus === false && <Alert style={{ marginBottom: 24 }} message='账号或密码错误' type="error" showIcon />}
