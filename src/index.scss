@@ -15,6 +15,15 @@ code {
 }
 
 body {
-  text-rendering: optimizeLegibility;
-  
+    text-rendering: optimizeLegibility;
+
+    :global {
+        .ant-menu-dark .ant-menu-inline.ant-menu-sub {
+            box-shadow: none;
+        }
+
+        .antd-pro-components-sider-menu-index-sider {
+            box-shadow: none;
+        }
+    }
 }

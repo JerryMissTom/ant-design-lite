@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Menu, Icon } from 'antd';
 import { Link } from 'react-router-dom';
-
+import { FormattedMessage } from 'react-intl';
 const SubMenu = Menu.SubMenu;
 class BaseMenu extends Component {
 
@@ -33,7 +33,10 @@ class BaseMenu extends Component {
 
             return (
                 <SubMenu
-                    title={item.icon ? (<span><Icon type={item.icon} /><span>{item.name}</span> </span>) : (item.name)}
+                    title={item.icon ?
+                        (<span><Icon type={item.icon} /> <FormattedMessage id={'menu.' + item.name} defaultMessage={item.name} /></span>)
+                        :
+                        (<FormattedMessage id={'menu.' + item.name} defaultMessage={item.name} />)}
                     key={item.path}
                 >
                     {this.getNavMenuItems(item.children)}
@@ -44,7 +47,7 @@ class BaseMenu extends Component {
             <Link to={item.path}>
                 <span>
                     <Icon type={item.icon} />
-                    <span>{item.name}</span>
+                    <FormattedMessage id={'menu.' + item.name} defaultMessage={item.name} />
                 </span>
             </Link>
         </Menu.Item>;
@@ -58,7 +61,7 @@ class BaseMenu extends Component {
             <Menu
                 theme='dark'
                 onClick={handleClick}
-                defaultSelectedKeys={this.getSelectedMenuKeys(pathname)}
+                selectedKeys={[pathname]}
                 mode="inline"
             >
                 {this.getNavMenuItems(routes)}

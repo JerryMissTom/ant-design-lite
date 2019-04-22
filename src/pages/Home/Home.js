@@ -8,7 +8,6 @@ import PageLoading from '@/components/PageLoading';
 const { Header, Footer, Content } = Layout;
 
 const routes = [
-
   {
     path: '/home/dashboard',
     name: 'dashboard',
@@ -24,12 +23,12 @@ const routes = [
         path: '/home/analysis/chart',
         name: 'chart',
         icon: 'dashboard',
-        // hideInMenu: true,
+        // hideInMenu: true,  通过此参数控制是否在Menu中显示
         component: React.lazy(() => import('./Chart/Chart')),
       }
     ]
   },
-  { path: '/home', redirect: '/home/dashboard' },
+  { path: '/home', redirect: '/home/dashboard' }, // 重定向必须放在后面，否则会报错
 ]
 
 class Home extends Component {
