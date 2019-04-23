@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Menu, Icon } from 'antd';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 const SubMenu = Menu.SubMenu;
-class BaseMenu extends Component {
+class BaseMenu extends PureComponent {
 
     /**
      * 获得菜单子节点
@@ -17,13 +17,7 @@ class BaseMenu extends Component {
             .filter(item => item.name && !item.hideInMenu)
             .map(item => this.getSubMenuOrItem(item))
             .filter(item => item);
-    };
-
-    // Get the currently selected menu
-    getSelectedMenuKeys = pathname => {
-        console.log(pathname);
-        return [pathname];
-    };
+    }
 
     /**
      * get SubMenu or Item

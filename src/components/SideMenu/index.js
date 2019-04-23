@@ -1,4 +1,4 @@
-import React, { Component, Suspense } from 'react';
+import React, { PureComponent, Suspense } from 'react';
 import { Layout } from 'antd';
 import PageLoading from '@/components/PageLoading';
 import BaseMenu from './BaseMenu';
@@ -6,7 +6,7 @@ import styles from './index.scss';
 
 const { Sider } = Layout;
 
-class SideMenu extends Component {
+class SideMenu extends PureComponent {
 
   render() {
     const { collapsed } = this.props;

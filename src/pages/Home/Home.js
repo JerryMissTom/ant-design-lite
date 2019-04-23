@@ -28,7 +28,8 @@ const routes = [
       }
     ]
   },
-  { path: '/home', redirect: '/home/dashboard' }, // 重定向必须放在后面，否则会报错
+  { component: React.lazy(() => import('../Exception/404')) },
+  { path: '/home', redirect: '/home/dashboard' }, // 重定向必须放在后面，否则会报错，或者是404不出现
 ]
 
 class Home extends Component {
@@ -70,8 +71,10 @@ class Home extends Component {
         return (<Route key={item.path} path={item.path}>
           {this.renderRoutes(item.children)}
         </Route>)
-      } else {
+      } else if (item.path) {
         return <Route key={item.path} path={item.path} component={item.component} />
+      } else {
+        return <Route key={Math.random(100)} component={item.component} />
       }
     })
   }
