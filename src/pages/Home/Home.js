@@ -4,10 +4,12 @@ import GlobalHeader from '@/components/GlobalHeader';
 import SideMenu from '@/components/SideMenu';
 import { Layout } from 'antd';
 import PageLoading from '@/components/PageLoading';
-
+import PageAuthorized from '@/components/Authorized/PageAuthorized';
+import Exception403 from '@/pages/Exception/403';
 const { Header, Footer, Content } = Layout;
 
 const routes = [
+  { path: '/home', redirect: '/home/dashboard' },
   {
     path: '/home/dashboard',
     name: 'dashboard',
@@ -29,7 +31,6 @@ const routes = [
     ]
   },
   { component: React.lazy(() => import('../Exception/404')) },
-  { path: '/home', redirect: '/home/dashboard' }, // 重定向必须放在后面，否则会报错，或者是404不出现
 ]
 
 class Home extends Component {
@@ -62,15 +63,13 @@ class Home extends Component {
     console.log(key);
   }
 
+  // <Redirect />必须加上 exact，from 和to，否则会报错
   renderRoutes = (routes) => {
     return routes.map(item => {
       if (item.redirect) {
-        return <Redirect exact key={item.path} to={item.redirect} />
-      }
-      if (item.children) {
-        return (<Route key={item.path} path={item.path}>
-          {this.renderRoutes(item.children)}
-        </Route>)
+        return <Redirect exact key={item.path} from={item.path} to={item.redirect} />
+      } else if (item.children) {
+        return <Route key={item.path} path={item.path}>{this.renderRoutes(item.children)}</Route>
       } else if (item.path) {
         return <Route key={item.path} path={item.path} component={item.component} />
       } else {
@@ -80,6 +79,7 @@ class Home extends Component {
   }
 
   render() {
+
     return (
       <Layout>
         <SideMenu
