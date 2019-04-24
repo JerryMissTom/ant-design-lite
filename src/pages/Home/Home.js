@@ -4,8 +4,8 @@ import GlobalHeader from '@/components/GlobalHeader';
 import SideMenu from '@/components/SideMenu';
 import { Layout } from 'antd';
 import PageLoading from '@/components/PageLoading';
-import PageAuthorized from '@/components/Authorized/PageAuthorized';
-import Exception403 from '@/pages/Exception/403';
+import PrivateRoute from '@/components/Authorized/PrivateRoute';
+
 const { Header, Footer, Content } = Layout;
 
 const routes = [
@@ -14,6 +14,7 @@ const routes = [
     path: '/home/dashboard',
     name: 'dashboard',
     icon: 'dashboard',
+    isAuthorized: true,  // 此参数控制页面是否有访问权限，也可以使用isAuthorized: checkPermission(params)
     component: React.lazy(() => import('./Dashboard/Dashboard')),
   },
   {
@@ -25,6 +26,7 @@ const routes = [
         path: '/home/analysis/chart',
         name: 'chart',
         icon: 'dashboard',
+        isAuthorized: false,  // 此参数控制页面是否有访问权限，没有的话，默认显示
         // hideInMenu: true,  通过此参数控制是否在Menu中显示
         component: React.lazy(() => import('./Chart/Chart')),
       }
@@ -71,7 +73,9 @@ class Home extends Component {
       } else if (item.children) {
         return <Route key={item.path} path={item.path}>{this.renderRoutes(item.children)}</Route>
       } else if (item.path) {
-        return <Route key={item.path} path={item.path} component={item.component} />
+        // 假如不需要页面权限的话， 可以使用如下方式
+        //  return <Route key={item.path}  path={item.path} component={item.component} />
+        return <PrivateRoute key={item.path} isAuthorized={item.isAuthorized} path={item.path} component={item.component} />
       } else {
         return <Route key={Math.random(100)} component={item.component} />
       }
@@ -111,3 +115,4 @@ class Home extends Component {
 }
 
 export default Home;
+
