@@ -1,5 +1,5 @@
 export default {
     'menu.dashboard': 'Dashboard',
-    'menu.analysis': 'Analysis',
-    'menu.chart': 'Chart',
+    'menu.setting': 'Setting',
+    'menu.user': 'User',
 }

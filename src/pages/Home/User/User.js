@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 
 
-class Chart extends Component {
+class User extends Component {
 
   render() {
     return (
       <div>
-          Chart
+          User
       </div>
     )
   }
 }
 
-export default Chart;
+export default User;
