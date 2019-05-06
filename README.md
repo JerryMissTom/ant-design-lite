@@ -9,6 +9,7 @@
 7. 支持别名`@`
 8. 支持页面权限和子元素权限
 9. 按需加载`Ant Design`组件
+10. 支持多开发环境
 
 截图如下：
 ![](https://github.com/JerryMissTom/ant-design-lite/blob/master/home.png?raw=true)
@@ -20,7 +21,8 @@
 3. 设置别名 `@`
 4. 开启装饰器支持
 5. 设置 `proxy`
-6. 设置页面权限
+6. 设置多开发环境
+7. 设置页面权限
 
 ## Usage
 1. `clone` 项目到本地
