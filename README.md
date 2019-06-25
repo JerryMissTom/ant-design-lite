@@ -1,18 +1,20 @@
 ## 前言
 本项目是瘦身版的`Ant Design Pro`，主要的功能特点如下：
-1. 技术栈为：`react-router` + `react-redux` + `redux-saga` 
-2. 支持 `.scss` 和 `cssmodule`
-3. 支持自定义 `Ant Design` 主题
-4. 支持装饰器
-5. 支持中英文语言切换
-6. 支持 `proxy`
-7. 支持别名`@`
-8. 支持页面权限和子元素权限
-9. 按需加载`Ant Design`组件
-10. 支持多开发环境
+
+1. 支持多Tab页面（这个是Ant Design Pro 不具备的）
+2. 技术栈为：`react-router` + `react-redux` + `redux-saga` 
+3. 支持 `.scss` 和 `cssmodule`
+4. 支持自定义 `Ant Design` 主题
+5. 支持装饰器
+6. 支持中英文语言切换
+7. 支持 `proxy`
+8. 支持别名`@`
+9. 支持页面权限和子元素权限
+10. 按需加载`Ant Design`组件
+11. 支持多开发环境
 
 截图如下：
-![](https://github.com/JerryMissTom/ant-design-lite/blob/master/home.png?raw=true)
+![](https://github.com/JerryMissTom/ant-design-lite/blob/master/tabs.png)
 
 ## 过程讲解
 预计的过程讲解如下：
