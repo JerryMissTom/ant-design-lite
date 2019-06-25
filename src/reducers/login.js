@@ -5,8 +5,6 @@ const initState = {
 }
 
 function loginReducer(state = initState, action) {
-    console.log('loginReducer');
-
     switch (action.type) {
         case POST_LOGIN_REQUEST:
             return {

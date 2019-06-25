@@ -1,48 +1,38 @@
 import React, { Component, Suspense } from 'react';
 import { Route, Switch, Redirect } from "react-router-dom";
+import { connect } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
+import { addTabAction, removeTabAction, clearTabAction } from '@/actions/operateTab';
 import GlobalHeader from '@/components/GlobalHeader';
 import SideMenu from '@/components/SideMenu';
-import { Layout } from 'antd';
+import Exception403 from '@/pages/Exception/403';
+import { Layout, Tabs } from 'antd';
 import PageLoading from '@/components/PageLoading';
 import PrivateRoute from '@/components/Authorized/PrivateRoute';
-
+import tabs from './tabs';
+import { changeTabAction } from '../../actions/operateTab';
+const { TabPane } = Tabs;
 const { Header, Footer, Content } = Layout;
-
-const routes = [
-  { path: '/home', redirect: '/home/dashboard' },
-  {
-    path: '/home/dashboard',
-    name: 'dashboard',
-    icon: 'dashboard',
-    isAuthorized: true,  // 此参数控制页面是否有访问权限，也可以使用isAuthorized: checkPermission(params)
-    component: React.lazy(() => import('./Dashboard/Dashboard')),
-  },
-  {
-    path: '/home/setting',
-    name: 'setting',
-    icon: 'setting',
-    children: [
-      {
-        path: '/home/setting/user',
-        name: 'user',
-        icon: 'user',
-        isAuthorized: false,  // 此参数控制页面是否有访问权限，没有的话，默认显示
-        // hideInMenu: true,  通过此参数控制是否在Menu中显示
-        component: React.lazy(() => import('./User/User')),
-      }
-    ]
-  },
-  { component: React.lazy(() => import('../Exception/404')) },
-]
 
 class Home extends Component {
 
   state = {
-    collapsed: false
+    collapsed: false,
+  }
+
+  addDashboard = () => {
+    const { addTab } = this.props;
+    addTab({
+      path: '/home/dashboard',
+      name: 'dashboard',
+      component: React.lazy(() => import('./Dashboard/Dashboard')),
+      isAuthorized: true,
+      closable: false
+    })
   }
 
   componentDidMount() {
-    console.log(this.props.match);
+    this.addDashboard();
   }
 
   onHandleCollapse = (collapsed) => {
@@ -62,10 +52,24 @@ class Home extends Component {
   }
 
   handleSideMenuClick = ({ key }) => {
-    console.log(key);
+    const { addTab } = this.props;
+    let tab = this.getTab(key, tabs)
+    addTab({
+      ...tab
+    });
   }
 
-  // <Redirect />必须加上 exact，from 和to，否则会报错
+  getTab = (path, tabList) => {
+    for (const item of tabList) {
+      if (path.startsWith(item.path) && !item.children) {
+        return item;
+      } else if (item.children) {
+        return this.getTab(path, item.children)
+      }
+    }
+  }
+
+  //  这个函数在非多Tab模式下使用 ，<Redirect />必须加上 exact，from 和to，否则会报错
   renderRoutes = (routes) => {
     return routes.map(item => {
       if (item.redirect) {
@@ -82,14 +86,24 @@ class Home extends Component {
     })
   }
 
-  render() {
+  onTabChange = (activeTabKey) => {
+    const { changeTab } = this.props;
+    changeTab(activeTabKey);
+  }
 
+  onTabEdit = (tabKey) => {
+    const { removeTab } = this.props;
+    removeTab(tabKey);
+  }
+
+  render() {
+    const { tabList, activeTabKey } = this.props;
     return (
       <Layout>
         <SideMenu
           collapsed={this.state.collapsed}
           handleClick={this.handleSideMenuClick}
-          routes={routes}
+          routes={tabs}
           {...this.props}
         />
         <Layout>
@@ -100,11 +114,30 @@ class Home extends Component {
               onMenuClick={this.onHandleMenuClick}
             />
           </Header>
-          <Content>
-            <Suspense fallback={<PageLoading />}>
+          <Content style={{ paddingLeft: 5, paddingTop: 5 }}>
+            {/* 下面注释的代码在非多Tab 模式下可以使用 */}
+            {/* <Suspense fallback={<PageLoading />}>
               <Switch>
                 {this.renderRoutes(routes)}
               </Switch>
+            </Suspense> */}
+            {/* 下面的代码在多Tab模式下可以使用 */}
+            <Suspense fallback={<PageLoading />}>
+              <Tabs
+                hideAdd
+                onChange={this.onTabChange}
+                activeKey={activeTabKey}
+                type="editable-card"
+                onEdit={this.onTabEdit}
+              >
+                {tabList.map(item => (
+                  <TabPane tab={<FormattedMessage id={'menu.' + item.name} defaultMessage={item.name} />} key={item.path} closable={item.closable}>
+                    {
+                      item.isAuthorized ? <item.component /> : <Exception403 />
+                    }
+                  </TabPane>
+                ))}
+              </Tabs>
             </Suspense>
           </Content>
           <Footer style={{ textAlign: 'center' }}>Copyright©2019 JerryMissTom</Footer>
@@ -114,5 +147,30 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const mapStateToProps = state => {
+  return {
+    tabList: state.operateTab.tabList,
+    activeTabKey: state.operateTab.activeTabKey
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addTab: (values) => {
+      dispatch(addTabAction(values))
+    },
+    removeTab: (values) => {
+      dispatch(removeTabAction(values))
+    },
+    changeTab: (values) => {
+      dispatch(changeTabAction(values))
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home);
+
 

@@ -21,10 +21,10 @@ class Login extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        login(values, () => {
-          console.log('callback');
+        // login(values, () => {
+        //   console.log('callback');
           this.props.history.replace('/home')
-        });
+        // });
       }
     });
   }
