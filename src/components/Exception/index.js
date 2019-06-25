@@ -5,10 +5,6 @@ import config from './typeConfig';
 import styles from './index.scss';
 
 class Exception extends React.PureComponent {
-  static defaultProps = {
-    backText: 'back to home',
-    redirect: '/home',
-  };
 
   constructor(props) {
     super(props);
@@ -18,14 +14,11 @@ class Exception extends React.PureComponent {
   render() {
     const {
       className,
-      backText,
-      linkElement = 'a',
       type,
       title,
       desc,
       img,
       actions,
-      redirect,
       ...rest
     } = this.props;
     const pageType = type in config ? type : '404';
@@ -41,17 +34,6 @@ class Exception extends React.PureComponent {
         <div className={styles.content}>
           <h1>{title || config[pageType].title}</h1>
           <div className={styles.desc}>{desc || config[pageType].desc}</div>
-          <div className={styles.actions}>
-            {actions ||
-              createElement(
-                linkElement,
-                {
-                  to: redirect,
-                  href: redirect,
-                },
-                <Button type="primary">{backText}</Button>
-              )}
-          </div>
         </div>
       </div>
     );
