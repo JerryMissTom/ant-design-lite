@@ -1,17 +1,8 @@
 import Exception404 from '@/pages/Exception/404';
+import tabs from '@/router/tabs';
 
-export function getTabFromDefinedTabList(key, tabs) {
-    let tab = getTab(key, tabs);
-    if (!tab) {
-        tab['path'] = key;
-        tab['name'] = '404';
-        tab['component'] = Exception404;
-    }
-    return tab;
-}
-
-function getTab(path, tabList) {
-    for (const item of tabList) {
+const getTab = (path, tablist) => {
+    for (const item of tablist) {
         if (path.startsWith(item.path) && !item.children) {
             return item;
         } else if (item.children) {
@@ -19,3 +10,23 @@ function getTab(path, tabList) {
         }
     }
 }
+
+export function getTabFromDefinedTabList(key) {
+
+    let tab = {};
+    let temp = getTab(key, tabs);
+    // 假如不存在，则返回404页面
+    if (!temp) {
+        tab['name'] = '404';
+        tab['isAuthorized'] = true;
+        tab['component'] = Exception404;
+    } else {
+        tab = {
+            ...temp
+        };
+    }
+    tab['path'] = key;
+
+    return tab;
+}
+

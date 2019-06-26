@@ -8,7 +8,7 @@ export default routes = [
         name: 'dashboard',
         icon: 'dashboard',
         isAuthorized: true,  // 此参数控制页面是否有访问权限，也可以使用isAuthorized: checkPermission(params)
-        component: React.lazy(() => import('../pages/Home/Dashboard/Dashboard')),
+        component: React.lazy(() => import('@/pages/Home/Dashboard/Dashboard')),
     },
     {
         path: '/home/setting',
@@ -21,9 +21,9 @@ export default routes = [
                 icon: 'user',
                 isAuthorized: false,  // 此参数控制页面是否有访问权限，没有的话，默认显示
                 // hideInMenu: true,  通过此参数控制是否在Menu中显示
-                component: React.lazy(() => import('../pages/Home/User/User')),
+                component: React.lazy(() => import('@/pages/Home/User/User')),
             }
         ]
     },
-    { component: React.lazy(() => import('../pages/Exception/404')) },
+    { component: React.lazy(() => import('@/pages/Exception/404')) },
 ];

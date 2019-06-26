@@ -24,6 +24,7 @@ function operateTabReducer(state = initState, action) {
             if (!exsit) {
                 list.push(action.payload);
             }
+            
             // 增加一个Tab，需要调整URL
             window.location.hash = `#${action.payload.path}`;
             return {

@@ -54,7 +54,7 @@ class Home extends Component {
 
   handleSideMenuClick = ({ key }) => {
     const { addTab } = this.props;
-    let tab = getTabFromDefinedTabList(key, tabs);
+    let tab = getTabFromDefinedTabList(key);
     addTab({
       ...tab
     });
