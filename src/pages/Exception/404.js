@@ -6,7 +6,6 @@ const Exception404 = () => (
     <Exception
         type="404"
         desc={<FormattedMessage id='error.404' />}
-        backText={<FormattedMessage id='back' />}
     />
 );
 

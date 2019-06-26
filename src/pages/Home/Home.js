@@ -2,15 +2,16 @@ import React, { Component, Suspense } from 'react';
 import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import { addTabAction, removeTabAction, clearTabAction } from '@/actions/operateTab';
+import { Layout, Tabs } from 'antd';
 import GlobalHeader from '@/components/GlobalHeader';
 import SideMenu from '@/components/SideMenu';
 import Exception403 from '@/pages/Exception/403';
-import { Layout, Tabs } from 'antd';
 import PageLoading from '@/components/PageLoading';
 import PrivateRoute from '@/components/Authorized/PrivateRoute';
-import tabs from './tabs';
-import { changeTabAction } from '../../actions/operateTab';
+import { addTabAction, removeTabAction, changeTabAction } from '@/actions/operateTab';
+import { getTabFromDefinedTabList } from '@/utils/utils';
+import tabs from '@/router/tabs';
+
 const { TabPane } = Tabs;
 const { Header, Footer, Content } = Layout;
 
@@ -53,20 +54,10 @@ class Home extends Component {
 
   handleSideMenuClick = ({ key }) => {
     const { addTab } = this.props;
-    let tab = this.getTab(key, tabs)
+    let tab = getTabFromDefinedTabList(key, tabs);
     addTab({
       ...tab
     });
-  }
-
-  getTab = (path, tabList) => {
-    for (const item of tabList) {
-      if (path.startsWith(item.path) && !item.children) {
-        return item;
-      } else if (item.children) {
-        return this.getTab(path, item.children)
-      }
-    }
   }
 
   //  这个函数在非多Tab模式下使用 ，<Redirect />必须加上 exact，from 和to，否则会报错
@@ -115,7 +106,7 @@ class Home extends Component {
             />
           </Header>
           <Content style={{ paddingLeft: 5, paddingTop: 5 }}>
-            {/* 下面注释的代码在非多Tab 模式下可以使用 */}
+            {/* 下面注释的代码在非多Tab模式下可以使用 */}
             {/* <Suspense fallback={<PageLoading />}>
               <Switch>
                 {this.renderRoutes(routes)}

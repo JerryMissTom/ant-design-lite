@@ -14,7 +14,7 @@ function operateTabReducer(state = initState, action) {
     switch (action.type) {
         case ADD_TAB:
             list = state.tabList.filter(item => item);
-            // 判断Tab列表中是否有此界面，假如有，则跳转到此界面，假如没有，则在列表中新增
+            // 判断Tab列表中是否有此界面，假如有，则切换到此界面，假如没有，则在列表中新增
             for (const item of state.tabList) {
                 if (item.path === action.payload.path) {
                     exsit = true;
@@ -24,6 +24,7 @@ function operateTabReducer(state = initState, action) {
             if (!exsit) {
                 list.push(action.payload);
             }
+            // 增加一个Tab，需要调整URL
             window.location.hash = `#${action.payload.path}`;
             return {
                 ...state,
@@ -43,7 +44,7 @@ function operateTabReducer(state = initState, action) {
                 list = state.tabList.filter(item => item.path !== action.payload)
                 activeTabKey = state.activeTabKey;
             }
-            // TODO 删除一个Tab，需要调整URL
+            // 删除一个Tab，需要调整URL
             window.location.hash = `#${activeTabKey}`;
             return {
                 ...state,

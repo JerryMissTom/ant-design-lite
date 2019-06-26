@@ -6,7 +6,6 @@ const Exception500 = () => (
     <Exception
         type="500"
         desc={<FormattedMessage id='error.500' />}
-        backText={<FormattedMessage id='back' />}
     />
 );
 
