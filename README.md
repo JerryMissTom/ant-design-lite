@@ -17,7 +17,7 @@
 ![](https://github.com/JerryMissTom/ant-design-lite/blob/master/tabs.png)
 
 ## 过程讲解
-预计的过程讲解如下：
+讲解的内容都在`issue`中，预计的过程讲解如下：
 1. 开启 `CSSModule`
 2. 按需加载 `Ant Design` 并自定义主题
 3. 设置别名 `@`
