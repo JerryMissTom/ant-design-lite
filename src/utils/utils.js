@@ -5,7 +5,7 @@ const getTab = (path, tablist) => {
     for (const item of tablist) {
         if (path.startsWith(item.path) && !item.children) {
             return item;
-        } else if (item.children) {
+        } else if (path.startsWith(item.path) && item.children) {
             return getTab(path, item.children)
         }
     }
