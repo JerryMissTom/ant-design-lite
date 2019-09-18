@@ -3,6 +3,7 @@ export default {
     'menu.setting': '设置',
     'menu.user': '用户',
     'menu.404': '404',
-    'menu.analysis': '分析',
-    'menu.detail': '详情',
+    'menu.device': '设备',
+    'menu.detail': '设备详情',
+    'menu.organization': '组织机构',
 }

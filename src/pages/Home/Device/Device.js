@@ -3,7 +3,7 @@ import { Button } from 'antd';
 import { connect } from 'react-redux';
 import { getTabFromDefinedTabList } from '@/utils/utils';
 import { addTabAction } from '@/actions/operateTab';
-class Analysis extends Component {
+class Device extends Component {
 
   to404Page = () => {
     const { addTab } = this.props;
@@ -15,9 +15,10 @@ class Analysis extends Component {
 
   toDetailPage = () => {
     const { addTab } = this.props;
-    let tab = getTabFromDefinedTabList(`/home/detail?id=${Math.random(100)}`);
+    let tab = getTabFromDefinedTabList('/home/devicedetail');
     addTab({
-      ...tab
+      ...tab,
+      path: `/home/devicedetail?id=${Math.random(100)}`
     });
   }
 
@@ -45,4 +46,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   null,
   mapDispatchToProps
-)(Analysis);
+)(Device);

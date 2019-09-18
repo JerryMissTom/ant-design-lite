@@ -3,6 +3,7 @@ export default {
     'menu.setting': 'Setting',
     'menu.user': 'User',
     'menu.404': '404',
-    'menu.analysis': 'Analysis',
+    'menu.device': 'Device',
     'menu.detail': 'Detail',
+    'menu.organization': 'Organization',
 }

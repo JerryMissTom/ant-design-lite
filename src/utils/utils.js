@@ -3,7 +3,7 @@ import tabs from '@/router/tabs';
 
 const getTab = (path, tablist) => {
     for (const item of tablist) {
-        if (path.startsWith(item.path) && !item.children) {
+        if (path === item.path && item.redirect === undefined && !item.children) {
             return item;
         } else if (path.startsWith(item.path) && item.children) {
             return getTab(path, item.children)
@@ -30,3 +30,10 @@ export function getTabFromDefinedTabList(key) {
     return tab;
 }
 
+export const getUrlParam = (param) => {
+    const reg = new RegExp('(^|&)' + param + '=([^&]*)(&|$)');
+    const r = window.location.search.substr(1).match(reg) || window.location.hash.substring((window.location.hash.search(/\?/)) + 1).match(reg);
+    if (r != null) {
+        return decodeURIComponent(r[2]);
+    }
+};
